@@ -4,7 +4,7 @@ import {
   Github, Linkedin, Mail, ExternalLink, Database, Brain, BarChart3,
   Server, LineChart, PieChart, FileSpreadsheet, Terminal, Send, Download,
   Bot, Workflow, BookOpen, Award, Users, Globe, Cloud, Code, Cpu,
-  Zap, Shield, CheckCircle, Smartphone, MoreHorizontal, AppWindow
+  Zap, Shield, CheckCircle, Smartphone, MoreHorizontal
 } from 'lucide-react';
 
 // --- Shared Components for the "Data Theme" ---
@@ -284,7 +284,7 @@ const AboutMe = () => (
           <div className="mb-8 pb-8 border-b border-white/5">
             <span className="text-xs font-bold text-cyan-500 uppercase tracking-widest block mb-3">Core Competencies</span>
             <div className="flex flex-wrap gap-2">
-              {["Power BI", "Power Automate", "n8n", "Power Apps", "Python", "SQL", "Excel", "SharePoint"].map(skill => (
+              {["Power BI", "Power Automate", "n8n", "Snowflake", "Python", "SQL", "Excel", "SharePoint"].map(skill => (
                 <span key={skill} className="px-3 py-1 bg-white/5 rounded-full text-sm text-white border border-white/5">{skill}</span>
               ))}
             </div>
@@ -323,7 +323,7 @@ const TechnicalArsenal = () => (
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
         {[
           { name: "n8n (Main)", icon: Zap, color: "text-red-400", bg: "bg-red-400/10" },
-          { name: "Power Apps", icon: AppWindow, color: "text-purple-400", bg: "bg-purple-400/10" },
+          { name: "Snowflake", icon: Cloud, color: "text-sky-300", bg: "bg-sky-300/10" },
           { name: "Power BI", icon: BarChart3, color: "text-amber-400", bg: "bg-amber-400/10" },
           { name: "Power Automate", icon: Workflow, color: "text-blue-400", bg: "bg-blue-400/10" },
           { name: "Excel", icon: FileSpreadsheet, color: "text-green-500", bg: "bg-green-500/10" },
