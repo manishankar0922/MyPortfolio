@@ -110,13 +110,13 @@ const Hero = () => (
               <BarChart3 size={18} />
               VIEW ANALYTICS
             </a>
-            <a href="#" className="px-8 py-4 border border-white/10 text-white font-semibold text-sm rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 group">
+            <a href="/MyPortfolio/MOHAN's RESUME ALL.pdf" download="MOHAN's RESUME ALL.pdf" className="px-8 py-4 border border-white/10 text-white font-semibold text-sm rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 group">
               <Download size={18} className="group-hover:translate-y-1 transition-transform" />
               RESUME
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
+          <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-8">
             <div>
               <div className="text-3xl font-bold text-white mb-1">5+</div>
               <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Dashboards Built</div>
@@ -124,10 +124,6 @@ const Hero = () => (
             <div>
               <div className="text-3xl font-bold text-white mb-1">10+</div>
               <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Automations</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">2+</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Years Exp</div>
             </div>
           </div>
         </motion.div>
@@ -431,9 +427,10 @@ const ExperienceLeadership = () => (
 const Certifications = () => {
   // Corrected list of certifications
   const certs = [
+    { title: "Snowflake SnowPro Associate", link: "https://achieve.snowflake.com/9d2eaf20-d409-401b-a452-7cc56cfc7468#acc.32hnvQpq", icon: Cloud, code: "SF-SP-2024" },
     { title: "Cisco Networking Academy – Python Essentials", link: "https://drive.google.com/file/d/1qorMeET0hhMGbcFlNd260LL1eBbDoUhv/view", icon: Terminal, code: "CS-PY-2024" },
     { title: "Master Microsoft Power BI – LinkedIn Learning", link: "https://drive.google.com/file/d/1aee1ZQvq6lRbGVsHsy2lzKccYXuXRrNO/view", icon: BarChart3, code: "MS-BI-2024" },
-    { title: "Google Cloud Career Launchpad – Generative AI Track", link: "#", icon: Cloud, code: "GC-AI-2024" }, // Link placeholder as not provided but requested in list
+    { title: "Google Cloud Career Launchpad – Generative AI Track", link: "#", icon: Cloud, code: "GC-AI-2024" },
     { title: "Google Gemini API – Getting Started", link: "https://drive.google.com/file/d/1FAGogI7KllJXz-Ha4KAP8jVu5yK9F8OU/view", icon: Brain, code: "GO-AI-2024" },
     { title: "AI Tools Skill Up – GeeksforGeeks", link: "https://drive.google.com/file/d/1I8CiYtL73mLNFB46g8sAZ_9byVPDMdUd/view", icon: Code, code: "GFG-TL-2024" },
     { title: "Google Skill Boost – Cloud & AI Learning", link: "https://drive.google.com/file/d/1cbvPCd7A6LkU1lBpQe5hxlh03KWePIku/view", icon: Cloud, code: "GC-CL-2024" }
@@ -537,39 +534,32 @@ const CodingProfiles = () => {
 const AutomationProjects = () => {
   const automationProjects = [
     {
-      title: "Community Incident Reporting System",
-      desc: "End-to-end incident management system. Automates submission, storage, and approval workflows.",
-      tags: ["SharePoint", "Power Automate", "Power BI"],
-      icon: Database,
+      title: "Supply Chain Analytics Dashboard",
+      desc: "Built a Power BI dashboard analyzing inventory turnover, demand patterns, and order fulfillment rates to improve supply chain visibility and identify operational bottlenecks.",
+      tags: ["Power BI", "Data Analysis", "Supply Chain"],
+      icon: BarChart3,
       id: "SYS-01"
     },
     {
-      title: "CertiFlow Automation",
-      desc: "Automated certificate generation and email distribution system for large-scale events.",
-      tags: ["Outlook", "Power Automate", "Word"],
-      icon: Send,
+      title: "Student Leave Approval Automation System",
+      desc: "Developed a structured workflow system using SharePoint and Power Automate to manage leave submissions, approval processes, and automated notifications, reducing manual administrative processing.",
+      tags: ["SharePoint", "Power Automate", "Workflow"],
+      icon: CheckCircle,
       id: "SYS-02"
     },
     {
-      title: "Restaurant AI Chatbot",
-      desc: "No-code chatbot using n8n to automate customer interactions and menu handling.",
-      tags: ["n8n", "AI Agents", "HTTP"],
-      icon: Smartphone,
+      title: "Daily Book Summary Automation (AI-Based)",
+      desc: "Built an AI-powered automation pipeline that extracts structured academic content from PDFs, generates daily summarized units, and automatically distributes learning summaries via email workflows.",
+      tags: ["AI", "Python", "Email Automation"],
+      icon: Brain,
       id: "SYS-03"
     },
     {
-      title: "SmartSync – Self-Healing Ops",
-      desc: "Operations system that detects failures and triggers corrective agents automatically.",
-      tags: ["Power Automate", "Excel", "Logs"],
+      title: "Telegram Expense Tracker using n8n",
+      desc: "Created a low-code automation bot integrated with Google Sheets to track and manage real-time expense records.",
+      tags: ["n8n", "Telegram", "Google Sheets"],
       icon: Bot,
       id: "SYS-04"
-    },
-    {
-      title: "Attendance Approval System",
-      desc: "Multi-level workflow for attendance management with transparent record keeping.",
-      tags: ["SharePoint", "Approvals", "Teams"],
-      icon: CheckCircle,
-      id: "SYS-05"
     }
   ];
 
