@@ -4,18 +4,21 @@ import {
   Github, Linkedin, Mail, ExternalLink, Database, Brain, BarChart3,
   Server, LineChart, PieChart, FileSpreadsheet, Terminal, Send, Download,
   Bot, Workflow, BookOpen, Award, Users, Globe, Cloud, Code, Cpu,
-  Zap, Shield, CheckCircle, Smartphone, MoreHorizontal
+  Zap, Shield, CheckCircle, Smartphone, MoreHorizontal, X
 } from 'lucide-react';
 
 // --- Shared Components for the "Data Theme" ---
 // --- Shared Components for the "Data Theme" ---
 const SectionHeader = ({ title, subtitle, label }) => (
-  <div className="mb-16">
-    <div className="flex items-center gap-3 mb-4">
-      <div className="h-[1px] w-8 bg-cyan-500/50"></div>
-      <span className="mono-label">{label}</span>
+  <div className="mb-20 relative z-10">
+    <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-1">
+        <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
+        <div className="h-[1px] w-12 bg-gradient-to-r from-cyan-400 to-transparent"></div>
+      </div>
+      <span className="mono-label text-cyan-400 tracking-[0.2em]">{label}</span>
     </div>
-    <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">
+    <h2 className="text-5xl lg:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
       {title} <span className="gradient-text">{subtitle}</span>
     </h2>
   </div>
@@ -23,14 +26,14 @@ const SectionHeader = ({ title, subtitle, label }) => (
 
 const TechCard = ({ children, className = "", delay = 0 }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay, duration: 0.5 }}
+    transition={{ delay, duration: 0.6, type: "spring", stiffness: 100 }}
     viewport={{ once: true, margin: "-50px" }}
-    className={`tech-card p-6 rounded-xl group relative ${className}`}
+    className={`tech-card p-8 rounded-2xl group relative ${className}`}
   >
-    <div className="corner-accent top-left"></div>
-    <div className="corner-accent bottom-right opacity-50 group-hover:opacity-100 transition-opacity"></div>
+    <div className="corner-accent top-left opacity-30 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div className="corner-accent bottom-right opacity-30 group-hover:opacity-100 transition-opacity duration-300"></div>
     {children}
   </motion.div>
 );
@@ -39,34 +42,42 @@ const TechCard = ({ children, className = "", delay = 0 }) => (
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['About', 'Experience', 'Certifications', 'Projects', 'Contact'];
+  const navItems = ['About', 'Experience', 'Projects', 'Dashboards', 'Contact'];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'h-16 bg-[#0f172a]/90 backdrop-blur-md border-b border-white/5' : 'h-24 bg-transparent'}`}>
-      <div className="container mx-auto px-6 h-full flex justify-between items-center max-w-7xl">
-        <a href="#" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-cyan-500/10 rounded flex items-center justify-center border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors">
-            <BarChart3 size={18} className="text-cyan-500" />
-          </div>
-          <span className="text-white font-sans font-bold tracking-tight text-lg">MOHAN <span className="text-cyan-500">| DATA</span></span>
-        </a>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-6'}`}>
+      <div className={`mx-auto px-6 max-w-7xl transition-all duration-500 ${isScrolled ? 'bg-[#060c18]/80 backdrop-blur-xl border border-white/5 rounded-full shadow-[0_4px_30px_rgba(0,0,0,0.5)] shadow-cyan-900/10' : 'bg-transparent'}`}>
+        <div className="h-14 flex justify-between items-center">
+          <a href="#" className="flex items-center gap-3 group relative cursor-pointer">
+            <div className="absolute inset-0 bg-cyan-500/20 blur-xl rounded-full group-hover:bg-cyan-400/30 transition-all"></div>
+            <div className="w-10 h-10 bg-cyan-950/50 rounded-lg flex items-center justify-center border border-cyan-500/30 group-hover:border-cyan-400 relative z-10 transition-colors">
+              <BarChart3 size={20} className="text-cyan-400" />
+            </div>
+            <span className="text-white font-sans font-bold tracking-tight text-xl relative z-10 drop-shadow-md">
+              MOHAN<span className="text-cyan-400 font-light"> DATA</span>
+            </span>
+          </a>
 
-        <div className="hidden md:flex gap-8">
-          {navItems.map((item, i) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-sm font-medium text-slate-400 hover:text-cyan-400 transition-colors relative group py-2"
-            >
-              {item}
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+          <div className="hidden md:flex gap-8 items-center">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-sm font-semibold text-slate-400 hover:text-white transition-colors relative group py-2"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-1/2 w-1 h-1 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transform -translate-x-1/2 transition-all duration-300 shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
+              </a>
+            ))}
+            <a href="#contact" className="px-5 py-2 text-sm font-bold bg-white/5 border border-white/10 rounded-full hover:bg-cyan-500 hover:text-white hover:border-cyan-400 transition-all duration-300 shadow-md">
+              Hire Me
             </a>
-          ))}
+          </div>
         </div>
       </div>
     </nav>
@@ -75,117 +86,130 @@ const Navbar = () => {
 
 // --- Hero Section ---
 const Hero = () => (
-  <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-    <div className="absolute inset-0 grid-bg-animated opacity-20 pointer-events-none"></div>
+  <section id="home" className="min-h-screen flex items-center pt-24 relative overflow-hidden">
+    <div className="absolute inset-0 grid-bg-animated opacity-[0.15]"></div>
 
-    <div className="container mx-auto px-6 pt-12 relative z-10 max-w-7xl">
-      <div className="flex flex-col lg:flex-row items-center gap-16">
+    {/* Decorative Glows */}
+    <div className="absolute top-20 -left-64 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="absolute bottom-0 -right-64 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+      <div className="flex flex-col lg:flex-row items-center gap-20">
 
         {/* Text Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="lg:w-1/2"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="lg:w-[55%]"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/30 border border-cyan-500/20 mb-8 backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-cyan-500/5 border border-cyan-500/20 mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
             </span>
-            <span className="text-xs font-semibold text-cyan-400 tracking-wide uppercase">Open to Work</span>
+            <span className="text-xs font-bold font-mono text-cyan-300 tracking-widest uppercase">Available for Hire</span>
           </div>
 
-          <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight text-white tracking-tight">
-            Turning Data into <br />
-            <span className="gradient-text">Insights & Decisions</span>
+          <h1 className="text-6xl lg:text-[5.5rem] font-extrabold mb-6 leading-[1.1] text-white tracking-tight drop-shadow-2xl">
+            Building Logic. <br />
+            <span className="gradient-text">Automating Chaos.</span>
           </h1>
 
-          <p className="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed font-light">
-            Data Analyst focused on <strong>interactive dashboards</strong>, <strong>automated reporting</strong>, and <strong>workflow optimization</strong> using Power BI, Excel, SQL, and Python.
+          <p className="text-xl text-slate-400 mb-12 max-w-2xl leading-relaxed font-light">
+            I am a Data Analyst & Automation Engineer specializing in
+            <strong className="text-white font-medium"> dynamic dashboards</strong> and
+            <strong className="text-white font-medium"> scalable workflows</strong> using
+            Power BI, n8n, SQL, and Python.
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-12">
-            <a href="#projects" className="px-8 py-4 bg-cyan-600 text-white font-semibold text-sm rounded-lg hover:bg-cyan-500 transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
-              <BarChart3 size={18} />
-              VIEW ANALYTICS
+          <div className="flex flex-wrap gap-5 mb-16">
+            <a href="#projects" className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold text-sm rounded-xl hover:from-cyan-500 hover:to-blue-500 transition-all shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] flex items-center gap-3 transform hover:-translate-y-1">
+              <Workflow size={20} />
+              EXPLORE SYSTEMS
             </a>
-            <a href="/MyPortfolio/MOHAN's RESUME ALL.pdf" download="MOHAN's RESUME ALL.pdf" className="px-8 py-4 border border-white/10 text-white font-semibold text-sm rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 group">
-              <Download size={18} className="group-hover:translate-y-1 transition-transform" />
+            <a href="/MyPortfolio/MOHAN's RESUME ALL.pdf" download="MOHAN's RESUME ALL.pdf" className="px-8 py-4 bg-white/5 border border-white/10 text-white font-bold text-sm rounded-xl hover:bg-white/10 hover:border-white/20 transition-all flex items-center gap-3 group backdrop-blur-sm shadow-xl">
+              <Download size={20} className="group-hover:-translate-y-1 transition-transform text-cyan-400" />
               RESUME
             </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-8">
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">5+</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Dashboards Built</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">10+</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Automations</div>
-            </div>
+          <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-10">
+            {[
+              { val: "10+", label: "Automations" },
+              { val: "5+", label: "Dashboards" },
+              { val: "99%", label: "Accuracy" }
+            ].map((stat, i) => (
+              <div key={i}>
+                <div className="text-4xl font-extrabold text-white mb-2 drop-shadow-md">{stat.val}</div>
+                <div className="text-[11px] font-mono text-cyan-500 uppercase tracking-[0.15em] font-semibold">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Hero Visual - Dashboard Preview Cards */}
+        {/* Pro Max Hero Visual - Glassmorphic Stack */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="lg:w-1/2 relative h-[500px] w-full flex items-center justify-center"
+          transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 80 }}
+          className="lg:w-[45%] relative h-[600px] w-full flex items-center justify-center pointer-events-none"
         >
-          {/* Background Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+          {/* Central Glow Core */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-500/20 rounded-full blur-[80px] animate-pulse-glow"></div>
 
-          {/* Floating Cards Mockup */}
-          <div className="relative w-full max-w-lg">
-            {/* Main Card (Power BI Style Report) */}
-            <div className="absolute top-0 right-0 w-full bg-[#1e293b] rounded-xl border border-white/10 shadow-2xl p-4 rotate-3 lg:rotate-6 z-10 animate-float">
-              <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
-                <div className="text-xs font-bold text-slate-300">Sales Performance Q4</div>
-                <MoreHorizontal size={14} className="text-slate-500" />
+          <div className="relative w-full max-w-lg perspective-1000">
+            {/* Primary Glass Card (Metrics) */}
+            <div className="absolute top-[-40px] right-0 w-[110%] bg-gradient-to-br from-[#121b2d]/90 to-[#0b1120]/80 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 rotate-2 z-10 animate-float">
+              <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-cyan-500/10 rounded-lg"><BarChart3 size={18} className="text-cyan-400" /></div>
+                  <div className="text-sm font-bold text-slate-200">System Analytics</div>
+                </div>
+                <div className="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[10px]">&gt; ONLINE</div>
               </div>
-              <div className="flex gap-4 items-end h-32 px-2">
-                <div className="w-8 bg-cyan-500/20 rounded-t h-[60%]"></div>
-                <div className="w-8 bg-cyan-500/40 rounded-t h-[80%]"></div>
-                <div className="w-8 bg-cyan-500/60 rounded-t h-[40%]"></div>
-                <div className="w-8 bg-cyan-500 rounded-t h-[100%] shadow-[0_0_15px_rgba(6,182,212,0.4)]"></div>
-                <div className="w-8 bg-cyan-500/30 rounded-t h-[50%]"></div>
+              <div className="flex items-end gap-3 h-36 px-2">
+                {[40, 70, 45, 90, 60, 100, 80].map((h, i) => (
+                  <div key={i} className="flex-1 bg-gradient-to-t from-cyan-600/20 to-cyan-400/80 rounded-t-md relative group" style={{ height: `${h}%` }}>
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity text-cyan-300">{h}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Secondary Card (Automation Flow) */}
-            <div className="absolute top-40 -left-4 lg:-left-12 w-64 bg-[#0f172a] rounded-xl border border-white/10 shadow-xl p-4 -rotate-3 z-20 tech-card">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-green-500/20 rounded-md text-green-400"><CheckCircle size={16} /></div>
+            {/* Secondary Glass Card (Automation Node) */}
+            <div className="absolute top-48 -left-12 w-72 bg-[#090f1d]/90 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl p-5 -rotate-3 z-20" style={{ animation: "float 7s ease-in-out infinite reverse" }}>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-2.5 bg-blue-500/20 rounded-xl text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.3)]"><Workflow size={20} /></div>
                 <div>
-                  <div className="text-xs font-bold text-slate-200">Flow Success</div>
-                  <div className="text-[10px] text-slate-500">Just now</div>
+                  <div className="text-sm font-bold text-white">Webhook Trigger</div>
+                  <div className="text-xs font-mono text-blue-400/80 mt-1">200 OK — 14ms</div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full w-full bg-green-500 rounded-full"></div>
+              <div className="space-y-3">
+                <div className="h-1.5 w-full bg-[#1e293b] rounded-full overflow-hidden">
+                  <div className="h-full w-[85%] bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)] rounded-full"></div>
                 </div>
-                <div className="flex justify-between text-[10px] text-slate-500 font-mono">
-                  <span>Trigger</span>
-                  <span>Action</span>
-                  <span>Complete</span>
+                <div className="flex gap-2">
+                  <div className="h-2 w-1/3 bg-white/5 rounded"></div>
+                  <div className="h-2 w-1/2 bg-white/5 rounded"></div>
                 </div>
               </div>
             </div>
 
-            {/* Third Card (Data Source) */}
-            <div className="absolute -bottom-12 right-12 w-56 bg-[#0f172a]/80 backdrop-blur-md rounded-xl border border-white/10 shadow-xl p-4 z-30">
-              <div className="flex items-center gap-3">
-                <Database size={20} className="text-blue-400" />
-                <div className="text-xs font-bold text-white">SQL Database</div>
+            {/* Tertiary Glass Card (Database) */}
+            <div className="absolute -bottom-24 right-8 w-64 bg-[#050812]/95 backdrop-blur-3xl rounded-2xl border border-purple-500/20 shadow-[-10px_-10px_30px_rgba(0,0,0,0.5)] p-5 z-30 transform hover:scale-105 transition-transform" style={{ animation: "float 8s ease-in-out infinite 1s" }}>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <Database size={20} className="text-purple-400" />
+                  <div className="text-sm font-bold text-white tracking-wide">Snowflake DB</div>
+                </div>
+                <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
               </div>
-              <div className="mt-2 text-[10px] text-slate-400 font-mono">
-                &gt; SELECT * FROM USERS<br />
-                &gt; WHERE STATUS = 'ACTIVE'<br />
-                &gt; ... 1,024 rows returned
+              <div className="p-3 bg-[#0a0f1c] rounded-lg border border-white/5 font-mono text-[11px] text-purple-300/80 leading-relaxed">
+                <span className="text-pink-400">SELECT</span> * <span className="text-pink-400">FROM</span> PROD_DATA<br />
+                <span className="text-pink-400">WHERE</span> STATUS = <span className="text-green-400">'SYNCED'</span><br />
+                <span className="text-slate-500">-- 14.2M rows analyzed</span>
               </div>
             </div>
           </div>
@@ -533,13 +557,7 @@ const CodingProfiles = () => {
 // --- Automation Projects Section (4. Projects) ---
 const AutomationProjects = () => {
   const automationProjects = [
-    {
-      title: "Supply Chain Analytics Dashboard",
-      desc: "Built a Power BI dashboard analyzing inventory turnover, demand patterns, and order fulfillment rates to improve supply chain visibility and identify operational bottlenecks.",
-      tags: ["Power BI", "Data Analysis", "Supply Chain"],
-      icon: BarChart3,
-      id: "SYS-01"
-    },
+
     {
       title: "Student Leave Approval Automation System",
       desc: "Developed a structured workflow system using SharePoint and Power Automate to manage leave submissions, approval processes, and automated notifications, reducing manual administrative processing.",
@@ -601,15 +619,25 @@ const AutomationProjects = () => {
 
 // --- Dashboard Projects Section (5. Dashboards) ---
 const AnalyticsDashboards = () => {
+  const [activeDashboard, setActiveDashboard] = useState(null);
+
   const analyticsProjects = [
     {
-      title: "Incident Analytics Dashboard",
-      desc: "Visualizes incidents by category, resolution time, and location heatmaps.",
-      tags: ["Power BI", "Data Viz"],
+      title: "Supply Chain Analytics Dashboard",
+      desc: "Built a Power BI dashboard analyzing inventory turnover, demand patterns, and order fulfillment rates to improve supply chain visibility and identify operational bottlenecks.",
+      tags: ["Power BI", "Data Analysis", "Supply Chain"],
       icon: BarChart3,
-      id: "DASH-01"
+      id: "DASH-01",
+      iframeUrl: "https://app.powerbi.com/reportEmbed?reportId=7312fe35-e63d-436e-892c-23da8c182578&autoAuth=true&ctid=7359f896-71e2-4dae-b8a3-15cdf97f2f10"
     }
   ];
+
+  // Disable scroll when modal is open
+  useEffect(() => {
+    if (activeDashboard) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
+  }, [activeDashboard]);
 
   return (
     <section id="dashboards" className="py-24 relative bg-neutral-900/10">
@@ -624,35 +652,129 @@ const AnalyticsDashboards = () => {
           </h2>
         </div>
 
-
         <h3 className="text-xl font-mono text-cyan-400 mb-8 flex items-center gap-2">
           <BarChart3 size={20} />
                                         // DATA_VISUALIZATION
         </h3>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {analyticsProjects.map((p, i) => (
-            <div key={i} className="group rounded-2xl bg-neutral-900/40 border border-white/5 hover:border-cyan-500/30 overflow-hidden flex flex-col h-full transition-all hover:-translate-y-1">
-              <div className="p-6 h-full flex flex-col">
+            <motion.div
+              key={i}
+              whileHover={{ y: -8, scale: 1.02 }}
+              onClick={() => setActiveDashboard(p)}
+              className="cursor-pointer group rounded-2xl bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 border border-white/5 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20 overflow-hidden flex flex-col h-full transition-all relative"
+            >
+              {/* Interactive Focus Highlight Effect */}
+              <div className="absolute inset-0 bg-cyan-500/0 group-hover:bg-cyan-500/5 transition-colors duration-300"></div>
+
+              <div className="p-8 h-full flex flex-col relative z-10">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 rounded-lg bg-cyan-500/5 text-cyan-400 group-hover:bg-cyan-500/20 group-hover:text-white transition-colors">
-                    <p.icon size={24} />
+                  <div className="p-3.5 rounded-xl bg-cyan-500/5 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300 shadow-inner group-hover:shadow-cyan-400/50">
+                    <p.icon size={26} />
                   </div>
-                  <span className="font-mono text-[10px] text-neutral-600 px-2 py-1 rounded bg-white/5">{p.id}</span>
+                  <span className="font-mono text-xs text-neutral-500 px-3 py-1 rounded bg-black/50 border border-white/10 group-hover:border-cyan-500/30 transition-colors">{p.id}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-3 leading-tight group-hover:text-cyan-400 transition-colors">{p.title}</h3>
-                <p className="text-sm text-neutral-400 leading-relaxed mb-6 flex-grow">{p.desc}</p>
+                <h3 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-cyan-400 transition-colors duration-300">{p.title}</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed mb-8 flex-grow">{p.desc}</p>
 
-                <div className="flex flex-wrap gap-2 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto pb-4">
                   {p.tags.map(t => (
-                    <span key={t} className="text-[10px] font-mono text-neutral-500 px-2 py-1 rounded bg-white/5 border border-white/5">{t}</span>
+                    <span key={t} className="text-xs font-mono text-cyan-300/70 px-2.5 py-1 rounded bg-cyan-900/30 border border-cyan-500/20">{t}</span>
                   ))}
                 </div>
+
+                {/* Hover Click Indication - Bottom fixed */}
+                <div className="w-full flex justify-end mt-4 overflow-hidden h-8">
+                  <div className="translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out flex items-center gap-2 text-cyan-400 text-sm font-semibold">
+                    <span>Launch Insight</span>
+                    <ExternalLink size={16} />
+                  </div>
+                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Full-Screen Interactive Dashboard Modal Overlay */}
+      {activeDashboard && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-6 lg:p-8 backdrop-blur-2xl bg-[#030304]/80">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-0"
+            onClick={() => setActiveDashboard(null)}
+          ></motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="relative z-10 w-full max-w-7xl h-full sm:h-[90vh] flex flex-col bg-[#0b1121] border border-cyan-500/30 rounded-2xl sm:rounded-3xl shadow-[0_0_80px_-15px_rgba(6,182,212,0.3)] overflow-hidden"
+          >
+            {/* Glow overlay */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-50"></div>
+
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-white/5 bg-[#0b1121]/50 backdrop-blur-md relative z-20">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 text-cyan-400 border border-cyan-500/20 shadow-inner">
+                  <activeDashboard.icon size={22} className="drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+                </div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-1.5 drop-shadow-sm">{activeDashboard.title}</h3>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {activeDashboard.tags.map(t => (
+                      <span key={t} className="text-[10px] sm:text-xs font-mono text-cyan-400 px-2 py-0.5 rounded-full bg-cyan-950/50 border border-cyan-500/20 shadow-sm">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Premium Close Button */}
+              <button
+                onClick={() => setActiveDashboard(null)}
+                className="group relative p-3 rounded-full overflow-hidden hover:bg-red-500/10 transition-colors"
+                aria-label="Close modal"
+              >
+                <div className="absolute inset-0 border border-white/10 rounded-full group-hover:border-red-500/50 group-hover:scale-110 transition-all duration-300"></div>
+                <X size={24} className="text-slate-400 group-hover:text-red-400 group-hover:rotate-90 transition-all duration-300" />
+              </button>
+            </div>
+
+            {/* Premium Loader logic - purely decorative loading state since iframe takes a second */}
+            <div className="absolute top-[80px] inset-x-0 h-[2px] w-full overflow-hidden bg-white/5 z-10">
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: "100%" }}
+                transition={{ duration: 1.5, ease: "easeInOut", repeat: Infinity }}
+                className="h-full w-1/3 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"
+              />
+            </div>
+
+            {/* Dashboard iframe */}
+            <div className="flex-grow w-full relative bg-[#020202] z-0">
+              {/* Optional blurred backdrop placeholder */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                <BarChart3 size={150} className="text-cyan-500" />
+              </div>
+              <iframe
+                title={activeDashboard.title}
+                width="100%"
+                height="100%"
+                src={activeDashboard.iframeUrl}
+                frameBorder="0"
+                className="absolute inset-0 z-10"
+                allowFullScreen={true}>
+              </iframe>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   )
 }

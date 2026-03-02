@@ -1,25 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0f172a;
-  /* Slate 900 */
-  --color-secondary: #1e293b;
-  /* Slate 800 */
+  --color-primary: #040814;
+  --color-secondary: #0b1121;
   --color-accent: #06b6d4;
-  /* Cyan 500 */
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: #030610;
 }
 
 body {
-  @apply bg-[#0b0f19] text-slate-300 font-sans antialiased;
+  @apply bg-[#030610] text-slate-300 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-100;
   background-image:
-    radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.03), transparent 20%),
-    radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.03), transparent 20%);
+    radial-gradient(circle at 15% 50%, rgba(6, 182, 212, 0.05), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.05), transparent 25%);
   overflow-x: hidden;
 }
 
@@ -30,64 +29,117 @@ body {
 
 /* --- Text Effects --- */
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400;
+  filter: drop-shadow(0px 0px 20px rgba(6, 182, 212, 0.2));
 }
 
 .mono-label {
-  @apply font-sans text-xs uppercase tracking-widest text-cyan-500/80 font-semibold;
+  @apply font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] text-cyan-400/90 font-semibold;
 }
 
-/* --- Background Pattern (Subtle Data Grid) --- */
+/* --- Advanced Background Pattern (Coordinate Grid) --- */
 .grid-bg-animated {
-  background-size: 60px 60px;
+  background-size: 40px 40px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 10%, transparent 95%);
+  pointer-events: none;
 }
 
-/* --- Dashboard Widget Styles --- */
+/* --- Glassmorphic Pro Tech Card Styles --- */
 .tech-card {
-  @apply relative overflow-hidden bg-[#111625] border border-white/5 rounded-xl transition-all duration-300;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  @apply relative overflow-hidden bg-gradient-to-b from-[#0e1526]/80 to-[#0a0f1c]/90 backdrop-blur-xl border border-white/5 rounded-2xl transition-all duration-500 ease-out;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.5), rgba(255, 255, 255, 0.05), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
 }
 
 .tech-card:hover {
-  @apply border-cyan-500/30 transform -translate-y-1;
-  box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  @apply transform -translate-y-2;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.5),
+    0 10px 20px -5px rgba(6, 182, 212, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
-/* --- Header Accents --- */
-.section-header-line {
-  @apply h-1 w-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full mb-4;
+.tech-card:hover::before {
+  opacity: 1;
 }
 
-/* --- KPI Card Styles --- */
-.kpi-card {
-  @apply bg-[#151b2e] border border-white/5 rounded-lg p-4 flex flex-col justify-center items-center text-center transition-colors hover:border-white/10;
+/* --- Dashboard Widget Glow Lines --- */
+.corner-accent {
+  @apply absolute w-8 h-8 pointer-events-none;
 }
 
-.kpi-value {
-  @apply text-2xl font-bold text-white mb-1;
+.corner-accent.top-left {
+  top: 0;
+  left: 0;
+  border-top: 2px solid rgba(6, 182, 212, 0.5);
+  border-left: 2px solid rgba(6, 182, 212, 0.5);
+  border-top-left-radius: 1rem;
 }
 
-.kpi-label {
-  @apply text-xs text-slate-400 font-medium uppercase tracking-wide;
+.corner-accent.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid rgba(6, 182, 212, 0.5);
+  border-right: 2px solid rgba(6, 182, 212, 0.5);
+  border-bottom-right-radius: 1rem;
 }
 
 /* --- Animations --- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(3deg);
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    transform: translateY(-15px) rotate(4deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(3deg);
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
 }
